@@ -4,7 +4,7 @@
   "ticket_url": "plane://tdworkspace/EXP/cca6e52d-7912-45c3-925b-17def23d1231",
   "title": "Expense Tracker — Initiative",
   "current_owner": "developer",
-  "current_state": "Ready for Dev",
+  "current_state": "Blocked",
   "milestones": [
     {
       "agent": "analyst",
@@ -19,11 +19,19 @@
       "state": "Ready for Dev",
       "timestamp": "2026-07-24T15:38:45Z",
       "action": "stories-validated-transitioned",
-      "notes": "Quality-checked all 6 stories (title, AC testability, sizing, components, source, non-functional) — all PASS, sizes S/M only. >5-story human-review checkpoint triggered (6 stories from one requirement); human approved with one condition: resolve EXP-12's open question on empty description on edit. Human decided: reject (mirror create-time rule) — EXP-12 description and AC-5 updated accordingly, comment posted. All 6 (EXP-10..EXP-15) transitioned Backlog -> Ready for Dev in Plane with handoff comments; owner handed to developer.",
+      "notes": "Quality-checked all 6 stories; all PASS, sizes S/M only. Human approved with EXP-12 description-on-edit resolution. All 6 transitioned Ready for Dev; owner handed to developer.",
+      "artifacts": ["EXP-10", "EXP-11", "EXP-12", "EXP-13", "EXP-14", "EXP-15"]
+    },
+    {
+      "agent": "developer",
+      "state": "Blocked",
+      "timestamp": "2026-07-24T19:45:00Z",
+      "action": "all-stories-implemented-pr-blocked",
+      "notes": "Scaffolded uv/FastAPI/SQLite project. Implemented all 6 stories (EXP-10..EXP-15) via TDD, each on its own branch, each with a complete requirements ledger (outstanding: 0), merged to local main. 42/42 tests green, 100% coverage, lint clean. Blocked on GitHub remote/auth — no PR opened; user chose to skip GitHub setup for now.",
       "artifacts": ["EXP-10", "EXP-11", "EXP-12", "EXP-13", "EXP-14", "EXP-15"]
     }
   ],
-  "blocked": false,
-  "blocked_reason": null,
-  "next_step": "Developer picks up EXP-10 first (schema-defining story), then EXP-11/EXP-12/EXP-13/EXP-15 in parallel, then EXP-14 last (depends on EXP-11)."
+  "blocked": true,
+  "blocked_reason": "No GitHub remote configured and no gh/GITHUB_TOKEN auth available — cannot open PRs for human review of any of the 6 completed stories.",
+  "next_step": "Set up a GitHub remote (or gh/GITHUB_TOKEN auth) for expense-tracker, push local main, open PR(s) covering EXP-10..EXP-15, then handoff-write each to In Review."
 }

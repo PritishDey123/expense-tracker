@@ -1,0 +1,15 @@
+{
+  "task_id": "EXP-13",
+  "ticket_key": "EXP-13",
+  "ticket_url": "plane://tdworkspace/EXP/b3559c67-673f-4b56-ba52-5e3174dc7eab",
+  "title": "Budget Owner deletes an expense",
+  "current_owner": "developer",
+  "current_state": "Blocked",
+  "milestones": [
+    {"agent": "developer", "state": "In Progress", "timestamp": "2026-07-24T18:50:00Z", "action": "session-start", "notes": "Picked up after EXP-12 merged to main."},
+    {"agent": "developer", "state": "Blocked", "timestamp": "2026-07-24T19:00:00Z", "action": "code-complete-pr-blocked", "notes": "All 5 ACs done, 100% coverage, committed to local main. No GitHub remote/auth available; user opted to skip GitHub setup for now."}
+  ],
+  "blocked": true,
+  "blocked_reason": "No GitHub remote configured and no gh/GITHUB_TOKEN auth available — cannot open a PR for human review.",
+  "next_step": "Set up a GitHub remote (or gh/GITHUB_TOKEN auth), push local main, open PR, then handoff-write to In Review."
+}

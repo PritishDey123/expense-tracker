@@ -1,9 +1,10 @@
-"""HTTP routes for the expenses resource (EXP-10: create, EXP-11: list)."""
+"""HTTP routes for the expenses resource (create, list, edit)."""
 
 from fastapi import APIRouter, HTTPException, status
 
-from expense_tracker.models import ExpenseCreate, ExpenseListPage, ExpenseOut
-from expense_tracker.service import create_expense, get_expenses_page
+from expense_tracker.errors import ExpenseNotFoundError
+from expense_tracker.models import ExpenseCreate, ExpenseListPage, ExpenseOut, ExpenseUpdate
+from expense_tracker.service import create_expense, edit_expense, get_expenses_page
 
 router = APIRouter(prefix="/expenses", tags=["expenses"])
 
@@ -25,3 +26,12 @@ def get_expense_list(page: int = 1, page_size: int = 20) -> ExpenseListPage:
         return get_expenses_page(page, page_size)
     except Exception as exc:
         raise HTTPException(status_code=500, detail="Could not retrieve expenses") from exc
+
+
+@router.patch("/{expense_id}", response_model=ExpenseOut)
+def patch_expense(expense_id: str, payload: ExpenseUpdate) -> ExpenseOut:
+    """Edit an existing expense (EXP-12). 404 if it does not exist."""
+    try:
+        return edit_expense(expense_id, payload)
+    except ExpenseNotFoundError:
+        raise HTTPException(status_code=404, detail="Expense not found") from None

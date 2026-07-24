@@ -1,9 +1,16 @@
-"""Business logic for expense creation and listing (EXP-10, EXP-11)."""
+"""Business logic for expense creation, listing, and editing."""
 
 import uuid
 
-from expense_tracker.models import ExpenseCreate, ExpenseListPage, ExpenseOut
-from expense_tracker.repository import count_expenses, insert_expense, list_expenses_page
+from expense_tracker.errors import ExpenseNotFoundError
+from expense_tracker.models import ExpenseCreate, ExpenseListPage, ExpenseOut, ExpenseUpdate
+from expense_tracker.repository import (
+    count_expenses,
+    get_expense,
+    insert_expense,
+    list_expenses_page,
+    update_expense,
+)
 
 
 def create_expense(payload: ExpenseCreate) -> ExpenseOut:
@@ -50,3 +57,27 @@ def get_expenses_page(page: int, page_size: int) -> ExpenseListPage:
         total=total,
         has_next=has_next,
     )
+
+
+def edit_expense(expense_id: str, payload: ExpenseUpdate) -> ExpenseOut:
+    """Apply a partial update to an existing expense.
+
+    Args:
+        payload: Only fields explicitly set by the caller are applied —
+            others are left untouched (EXP-12 AC4).
+
+    Raises:
+        ExpenseNotFoundError: `expense_id` does not exist.
+    """
+    existing = get_expense(expense_id)
+    if existing is None:
+        raise ExpenseNotFoundError(expense_id)
+
+    changes = payload.model_dump(exclude_unset=True)
+    if "date" in changes:
+        changes["date"] = changes["date"].isoformat()
+    if changes:
+        update_expense(expense_id, changes)
+
+    updated = get_expense(expense_id)
+    return ExpenseOut(**updated)

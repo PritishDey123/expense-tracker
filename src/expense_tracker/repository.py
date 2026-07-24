@@ -33,6 +33,30 @@ def list_expenses() -> list[dict]:
     with get_connection() as conn:
         rows = conn.execute(
             "SELECT id, amount, category, date, description, created_at "
-            "FROM expenses ORDER BY created_at DESC"
+            "FROM expenses ORDER BY created_at DESC, rowid DESC"
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+
+def count_expenses() -> int:
+    """Return the total number of stored expenses."""
+    with get_connection() as conn:
+        (total,) = conn.execute("SELECT COUNT(*) FROM expenses").fetchone()
+        return total
+
+
+def list_expenses_page(page: int, page_size: int) -> list[dict]:
+    """Return one page of expenses, most-recently-created first, stable order.
+
+    `rowid DESC` is the tiebreaker for same-`created_at` rows, so paging and
+    repeated views never reorder or duplicate results.
+    """
+    offset = (page - 1) * page_size
+    with get_connection() as conn:
+        rows = conn.execute(
+            "SELECT id, amount, category, date, description, created_at "
+            "FROM expenses ORDER BY created_at DESC, rowid DESC "
+            "LIMIT ? OFFSET ?",
+            (page_size, offset),
         ).fetchall()
         return [dict(row) for row in rows]

@@ -39,3 +39,11 @@ class ExpenseOut(BaseModel):
     category: str
     date: date_type
     description: str
+
+
+class ExpenseListPage(BaseModel):
+    items: list[ExpenseOut]
+    page: int
+    page_size: int
+    total: int
+    has_next: bool

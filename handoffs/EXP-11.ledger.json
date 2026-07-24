@@ -1,0 +1,16 @@
+{
+  "task_id": "EXP-11",
+  "source": "coordinator",
+  "created_at": "2026-07-24T18:00:00Z",
+  "updated_at": "2026-07-24T18:20:00Z",
+  "requirements": [
+    {"id": "REQ-1", "text": "Expenses displayed most-recent-first with amount, category, date, description.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py", "service.py"], "test_refs": ["tests/test_list_expenses.py::test_lists_most_recent_first_with_all_fields"], "notes": "", "last_updated": "2026-07-24T18:20:00Z"},
+    {"id": "REQ-2", "text": "No expenses recorded → empty-state message, no error, no page controls.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["routers/expenses.py"], "test_refs": ["tests/test_list_expenses.py::test_empty_state_when_no_expenses"], "notes": "", "last_updated": "2026-07-24T18:20:00Z"},
+    {"id": "REQ-3", "text": "More results than one page → first page shown with next-page control.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["service.py"], "test_refs": ["tests/test_list_expenses.py::test_first_page_has_next_control_when_more_results_exist"], "notes": "", "last_updated": "2026-07-24T18:20:00Z"},
+    {"id": "REQ-4", "text": "Requesting next page → continues most-recent-first order, no repeats/skips.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py"], "test_refs": ["tests/test_list_expenses.py::test_next_page_continues_order_without_repeats_or_skips"], "notes": "", "last_updated": "2026-07-24T18:20:00Z"},
+    {"id": "REQ-5", "text": "Last page → no control to advance further.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["service.py"], "test_refs": ["tests/test_list_expenses.py::test_last_page_has_no_next_control"], "notes": "", "last_updated": "2026-07-24T18:20:00Z"},
+    {"id": "REQ-6", "text": "Same-date ties → stable, consistent order across repeated views.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py"], "test_refs": ["tests/test_list_expenses.py::test_same_date_ties_are_stable_across_repeated_views"], "notes": "rowid DESC tiebreaker added to ORDER BY.", "last_updated": "2026-07-24T18:20:00Z"},
+    {"id": "REQ-7", "text": "Retrieval failure → error message shown, no partial/incorrect data.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["routers/expenses.py"], "test_refs": ["tests/test_list_expenses.py::test_retrieval_failure_returns_error_without_partial_data"], "notes": "", "last_updated": "2026-07-24T18:20:00Z"}
+  ],
+  "coverage_summary": {"total": 7, "done": 7, "descoped": 0, "outstanding": 0}
+}

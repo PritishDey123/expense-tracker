@@ -1,0 +1,20 @@
+{
+  "task_id": "EXP-10",
+  "ticket_key": "EXP-10",
+  "ticket_url": "plane://tdworkspace/EXP/5f9d7d75-a693-4bdb-abed-b9a9ac360703",
+  "title": "Budget Owner records a new expense",
+  "current_owner": "developer",
+  "current_state": "In Progress",
+  "milestones": [
+    {
+      "agent": "developer",
+      "state": "In Progress",
+      "timestamp": "2026-07-24T17:40:00Z",
+      "action": "session-start",
+      "notes": "Picked up from Plane (Ready for Dev). Project scaffolded with uv/FastAPI/SQLite. Ledger created (7 ACs, all pending). Schema-defining story — blocks EXP-11/12/13/15."
+    }
+  ],
+  "blocked": false,
+  "blocked_reason": null,
+  "next_step": "TDD loop per AC: model + repository + service + router for POST /expenses"
+}

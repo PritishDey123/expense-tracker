@@ -6,7 +6,7 @@ Configuration for the TrieDatum Agentic SDLC agents operating on this repo.
 # === Project identity ===
 project_name: expense-tracker
 project_owner: pritish.dey@triedatum.com
-repo_url: null   # set once this project is pushed to a git remote
+repo_url: https://github.com/PritishDey123/expense-tracker.git
 
 # === Ticket system (see tdm-aisdlc-shared/.claude/rules/ticketing.md) ===
 ticket_system: plane

@@ -3,8 +3,8 @@
   "ticket_key": "EXP-8",
   "ticket_url": "plane://tdworkspace/EXP/cca6e52d-7912-45c3-925b-17def23d1231",
   "title": "Expense Tracker — Initiative",
-  "current_owner": "reviewer",
-  "current_state": "In Review",
+  "current_owner": "human",
+  "current_state": "Done",
   "milestones": [
     {
       "agent": "analyst",
@@ -37,9 +37,17 @@
       "action": "remote-pushed-unblocked",
       "notes": "User provided repo URL (github.com/PritishDey123/expense-tracker) and pushed main themselves. All 6 story tickets transitioned to In Review, reviewed against commit history (no PR objects — branches were already merged pre-auth).",
       "artifacts": ["EXP-10", "EXP-11", "EXP-12", "EXP-13", "EXP-14", "EXP-15"]
+    },
+    {
+      "agent": "human",
+      "state": "Done",
+      "timestamp": "2026-07-24T19:50:00Z",
+      "action": "approve",
+      "notes": "Human approved the 6 commits on GitHub main. All 6 stories (EXP-10..EXP-15) and this initiative transitioned to Done. Plane MCP returned 403 Forbidden for this project during this session — manifest updated as fallback per handoff-protocol.md Plane-integration exception; Plane tickets need reconciliation once access is restored.",
+      "artifacts": ["EXP-10", "EXP-11", "EXP-12", "EXP-13", "EXP-14", "EXP-15"]
     }
   ],
   "blocked": false,
   "blocked_reason": null,
-  "next_step": "Human reviews the 6 commits on GitHub main and approves; on approval each story transitions to Done."
+  "next_step": "None — initiative complete. Reconcile Plane ticket states to Done once Plane access is restored. GITHUB_TOKEN is not set — no GitHub MCP action taken; per-story PR recreation was not offered."
 }

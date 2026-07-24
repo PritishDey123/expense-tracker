@@ -3,14 +3,39 @@
   "ticket_key": "EXP-13",
   "ticket_url": "https://github.com/PritishDey123/expense-tracker/commit/3a6a559",
   "title": "Budget Owner deletes an expense",
-  "current_owner": "reviewer",
-  "current_state": "In Review",
+  "current_owner": "human",
+  "current_state": "Done",
   "milestones": [
-    {"agent": "developer", "state": "In Progress", "timestamp": "2026-07-24T18:50:00Z", "action": "session-start", "notes": "Picked up after EXP-12 merged to main."},
-    {"agent": "developer", "state": "Blocked", "timestamp": "2026-07-24T19:00:00Z", "action": "code-complete-pr-blocked", "notes": "All 5 ACs done, 100% coverage, committed to local main. No GitHub remote/auth available."},
-    {"agent": "developer", "state": "In Review", "timestamp": "2026-07-24T18:42:00Z", "action": "remote-pushed-unblocked", "notes": "User provided repo URL and pushed main themselves. Reviewing against commit 3a6a559 on GitHub directly."}
+    {
+      "agent": "developer",
+      "state": "In Progress",
+      "timestamp": "2026-07-24T18:50:00Z",
+      "action": "session-start",
+      "notes": "Picked up after EXP-12 merged to main."
+    },
+    {
+      "agent": "developer",
+      "state": "Blocked",
+      "timestamp": "2026-07-24T19:00:00Z",
+      "action": "code-complete-pr-blocked",
+      "notes": "All 5 ACs done, 100% coverage, committed to local main. No GitHub remote/auth available."
+    },
+    {
+      "agent": "developer",
+      "state": "In Review",
+      "timestamp": "2026-07-24T18:42:00Z",
+      "action": "remote-pushed-unblocked",
+      "notes": "User provided repo URL and pushed main themselves. Reviewing against commit 3a6a559 on GitHub directly."
+    },
+    {
+      "agent": "human",
+      "state": "Done",
+      "timestamp": "2026-07-24T19:44:11Z",
+      "action": "approve",
+      "notes": "Human reviewed and approved commits on GitHub main; story transitioned to Done. (Plane MCP returned 403 for this project \u2014 manifest updated as fallback per handoff-protocol.md Plane-integration exception; Plane ticket needs reconciliation once access is restored.)"
+    }
   ],
   "blocked": false,
   "blocked_reason": null,
-  "next_step": "Human review of commit 3a6a559 on GitHub, then merge-approval milestone."
+  "next_step": "None \u2014 story complete. Reconcile Plane ticket state to Done once Plane access is restored."
 }

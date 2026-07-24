@@ -1,14 +1,24 @@
-"""HTTP routes for the expenses resource (create, list, edit)."""
+"""HTTP routes for the expenses resource (create, list, edit, delete, summary)."""
+
+from datetime import date as date_type
+from typing import Literal
 
 from fastapi import APIRouter, HTTPException, status
 
 from expense_tracker.errors import ExpenseNotFoundError
-from expense_tracker.models import ExpenseCreate, ExpenseListPage, ExpenseOut, ExpenseUpdate
+from expense_tracker.models import (
+    ExpenseCreate,
+    ExpenseListPage,
+    ExpenseOut,
+    ExpenseUpdate,
+    SpendingSummary,
+)
 from expense_tracker.service import (
     create_expense,
     delete_expense,
     edit_expense,
     get_expenses_page,
+    get_spending_summary,
 )
 
 router = APIRouter(prefix="/expenses", tags=["expenses"])
@@ -31,6 +41,27 @@ def get_expense_list(page: int = 1, page_size: int = 20) -> ExpenseListPage:
         return get_expenses_page(page, page_size)
     except Exception as exc:
         raise HTTPException(status_code=500, detail="Could not retrieve expenses") from exc
+
+
+@router.get("/summary", response_model=SpendingSummary)
+def get_summary(
+    group_by: Literal["category", "month"],
+    start_date: date_type | None = None,
+    end_date: date_type | None = None,
+) -> SpendingSummary:
+    """Spending summary grouped by category or month (EXP-15).
+
+    Raises:
+        HTTPException(422): `start_date` is after `end_date`.
+    """
+    try:
+        return get_spending_summary(
+            group_by,
+            start_date.isoformat() if start_date else None,
+            end_date.isoformat() if end_date else None,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
 @router.patch("/{expense_id}", response_model=ExpenseOut)

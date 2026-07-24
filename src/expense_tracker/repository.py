@@ -76,6 +76,34 @@ def delete_expense(expense_id: str) -> None:
         conn.execute("DELETE FROM expenses WHERE id = ?", (expense_id,))
 
 
+def summarize(group_by: str, start_date: str | None, end_date: str | None) -> list[dict]:
+    """Sum amounts grouped by category or month, within an optional date range.
+
+    Args:
+        group_by: "category" or "month" — "month" groups by the date's
+            YYYY-MM prefix, so a boundary date lands in exactly one bucket.
+        start_date, end_date: ISO date strings, inclusive; None means
+            unbounded on that side.
+
+    Returns:
+        One dict per group: {"key": str, "total": float}. A blank/missing
+        category is bucketed as "Uncategorized".
+    """
+    key_expr = (
+        "COALESCE(NULLIF(category, ''), 'Uncategorized')"
+        if group_by == "category"
+        else "substr(date, 1, 7)"
+    )
+    with get_connection() as conn:
+        rows = conn.execute(
+            f"SELECT {key_expr} AS key, SUM(amount) AS total FROM expenses "
+            "WHERE (:start IS NULL OR date >= :start) AND (:end IS NULL OR date <= :end) "
+            "GROUP BY key ORDER BY key",
+            {"start": start_date, "end": end_date},
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+
 def list_expenses_page(page: int, page_size: int) -> list[dict]:
     """Return one page of expenses, most-recently-created first, stable order.
 

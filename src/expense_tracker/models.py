@@ -63,3 +63,14 @@ class ExpenseListPage(BaseModel):
     page_size: int
     total: int
     has_next: bool
+
+
+class SummaryRow(BaseModel):
+    key: str
+    total: float
+
+
+class SpendingSummary(BaseModel):
+    group_by: str
+    totals: list[SummaryRow]
+    overall_total: float

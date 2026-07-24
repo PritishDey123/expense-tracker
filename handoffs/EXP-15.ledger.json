@@ -1,0 +1,16 @@
+{
+  "task_id": "EXP-15",
+  "source": "coordinator",
+  "created_at": "2026-07-24T19:05:00Z",
+  "updated_at": "2026-07-24T19:20:00Z",
+  "requirements": [
+    {"id": "REQ-1", "text": "Group by category → totals per category, summing to overall period spend.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py", "service.py"], "test_refs": ["tests/test_spending_summary.py::test_group_by_category_sums_to_overall_total"], "notes": "", "last_updated": "2026-07-24T19:20:00Z"},
+    {"id": "REQ-2", "text": "Group by month → totals per month, summing to overall period spend.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py", "service.py"], "test_refs": ["tests/test_spending_summary.py::test_group_by_month_sums_to_overall_total"], "notes": "", "last_updated": "2026-07-24T19:20:00Z"},
+    {"id": "REQ-3", "text": "No expenses in requested period → zero/empty result, not an error.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py"], "test_refs": ["tests/test_spending_summary.py::test_no_expenses_in_period_returns_empty_result_not_error"], "notes": "", "last_updated": "2026-07-24T19:20:00Z"},
+    {"id": "REQ-4", "text": "No grouping specified → rejected with message, no summary generated.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["routers/expenses.py"], "test_refs": ["tests/test_spending_summary.py::test_no_group_by_is_rejected"], "notes": "group_by is a required Literal[\"category\",\"month\"] query param.", "last_updated": "2026-07-24T19:20:00Z"},
+    {"id": "REQ-5", "text": "Expenses missing a category, grouped by category → bucketed under 'Uncategorized.'", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py"], "test_refs": ["tests/test_spending_summary.py::test_missing_category_bucketed_as_uncategorized"], "notes": "Verified by seeding an empty-category row directly via repository.insert_expense, since the API itself never allows blank category (EXP-10/12).", "last_updated": "2026-07-24T19:20:00Z"},
+    {"id": "REQ-6", "text": "Expense dated exactly on a month boundary → attributed to exactly one month, no double-count/omission.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py"], "test_refs": ["tests/test_spending_summary.py::test_month_boundary_expense_attributed_to_exactly_one_month"], "notes": "", "last_updated": "2026-07-24T19:20:00Z"},
+    {"id": "REQ-7", "text": "Start date after end date → validation error, no summary generated.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["service.py", "routers/expenses.py"], "test_refs": ["tests/test_spending_summary.py::test_start_after_end_date_is_rejected"], "notes": "", "last_updated": "2026-07-24T19:20:00Z"}
+  ],
+  "coverage_summary": {"total": 7, "done": 7, "descoped": 0, "outstanding": 0}
+}

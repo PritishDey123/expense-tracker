@@ -2,15 +2,15 @@
   "task_id": "EXP-10",
   "source": "coordinator",
   "created_at": "2026-07-24T17:40:00Z",
-  "updated_at": "2026-07-24T17:40:00Z",
+  "updated_at": "2026-07-24T17:55:00Z",
   "requirements": [
-    {"id": "REQ-1", "text": "Happy path — valid amount/category/date/description submitted → Expense created, confirmation shown.", "origin": "acceptance-criterion", "status": "pending", "component_ids": [], "test_refs": [], "notes": "", "last_updated": "2026-07-24T17:40:00Z"},
-    {"id": "REQ-2", "text": "Zero or negative amount → rejected with message, no record created.", "origin": "acceptance-criterion", "status": "pending", "component_ids": [], "test_refs": [], "notes": "", "last_updated": "2026-07-24T17:40:00Z"},
-    {"id": "REQ-3", "text": "Blank category → rejected with message, no record created.", "origin": "acceptance-criterion", "status": "pending", "component_ids": [], "test_refs": [], "notes": "", "last_updated": "2026-07-24T17:40:00Z"},
-    {"id": "REQ-4", "text": "Future-dated expense → accepted (no date restriction stated).", "origin": "acceptance-criterion", "status": "pending", "component_ids": [], "test_refs": [], "notes": "", "last_updated": "2026-07-24T17:40:00Z"},
-    {"id": "REQ-5", "text": "Blank description → rejected with message, no record created.", "origin": "acceptance-criterion", "status": "pending", "component_ids": [], "test_refs": [], "notes": "", "last_updated": "2026-07-24T17:40:00Z"},
-    {"id": "REQ-6", "text": "Amount with >2 decimal places → recorded amount displayed rounded to 2 decimals.", "origin": "acceptance-criterion", "status": "pending", "component_ids": [], "test_refs": [], "notes": "", "last_updated": "2026-07-24T17:40:00Z"},
-    {"id": "REQ-7", "text": "Newly created expense appears in the expense list with all fields as entered.", "origin": "acceptance-criterion", "status": "pending", "component_ids": [], "test_refs": [], "notes": "", "last_updated": "2026-07-24T17:40:00Z"}
+    {"id": "REQ-1", "text": "Happy path — valid amount/category/date/description submitted → Expense created, confirmation shown.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["routers/expenses.py", "service.py"], "test_refs": ["tests/test_create_expense.py::test_happy_path_creates_expense"], "notes": "", "last_updated": "2026-07-24T17:55:00Z"},
+    {"id": "REQ-2", "text": "Zero or negative amount → rejected with message, no record created.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["models.py"], "test_refs": ["tests/test_create_expense.py::test_rejects_zero_amount", "tests/test_create_expense.py::test_rejects_negative_amount"], "notes": "", "last_updated": "2026-07-24T17:55:00Z"},
+    {"id": "REQ-3", "text": "Blank category → rejected with message, no record created.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["models.py"], "test_refs": ["tests/test_create_expense.py::test_rejects_blank_category"], "notes": "", "last_updated": "2026-07-24T17:55:00Z"},
+    {"id": "REQ-4", "text": "Future-dated expense → accepted (no date restriction stated).", "origin": "acceptance-criterion", "status": "done", "component_ids": ["models.py"], "test_refs": ["tests/test_create_expense.py::test_accepts_future_dated_expense"], "notes": "", "last_updated": "2026-07-24T17:55:00Z"},
+    {"id": "REQ-5", "text": "Blank description → rejected with message, no record created.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["models.py"], "test_refs": ["tests/test_create_expense.py::test_rejects_blank_description"], "notes": "", "last_updated": "2026-07-24T17:55:00Z"},
+    {"id": "REQ-6", "text": "Amount with >2 decimal places → recorded amount displayed rounded to 2 decimals.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["models.py"], "test_refs": ["tests/test_create_expense.py::test_rounds_amount_to_two_decimals"], "notes": "", "last_updated": "2026-07-24T17:55:00Z"},
+    {"id": "REQ-7", "text": "Newly created expense appears in the expense list with all fields as entered.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py"], "test_refs": ["tests/test_create_expense.py::test_created_expense_appears_in_repository_list"], "notes": "Verified at repository level; EXP-11 builds the paginated GET /expenses endpoint on top of this same list_expenses().", "last_updated": "2026-07-24T17:55:00Z"}
   ],
-  "coverage_summary": {"total": 7, "done": 0, "descoped": 0, "outstanding": 7}
+  "coverage_summary": {"total": 7, "done": 7, "descoped": 0, "outstanding": 0}
 }

@@ -70,6 +70,12 @@ def update_expense(expense_id: str, fields: dict) -> None:
         )
 
 
+def delete_expense(expense_id: str) -> None:
+    """Delete one expense row by id. No-op if it does not exist."""
+    with get_connection() as conn:
+        conn.execute("DELETE FROM expenses WHERE id = ?", (expense_id,))
+
+
 def list_expenses_page(page: int, page_size: int) -> list[dict]:
     """Return one page of expenses, most-recently-created first, stable order.
 

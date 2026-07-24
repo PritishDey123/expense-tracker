@@ -11,6 +11,9 @@ from expense_tracker.repository import (
     list_expenses_page,
     update_expense,
 )
+from expense_tracker.repository import (
+    delete_expense as repo_delete_expense,
+)
 
 
 def create_expense(payload: ExpenseCreate) -> ExpenseOut:
@@ -81,3 +84,14 @@ def edit_expense(expense_id: str, payload: ExpenseUpdate) -> ExpenseOut:
 
     updated = get_expense(expense_id)
     return ExpenseOut(**updated)
+
+
+def delete_expense(expense_id: str) -> None:
+    """Permanently remove an expense.
+
+    Raises:
+        ExpenseNotFoundError: `expense_id` does not exist.
+    """
+    if get_expense(expense_id) is None:
+        raise ExpenseNotFoundError(expense_id)
+    repo_delete_expense(expense_id)

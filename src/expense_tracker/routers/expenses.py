@@ -31,14 +31,29 @@ def post_expense(payload: ExpenseCreate) -> ExpenseOut:
 
 
 @router.get("", response_model=ExpenseListPage)
-def get_expense_list(page: int = 1, page_size: int = 20) -> ExpenseListPage:
-    """List expenses, most-recent-first, paginated (EXP-11).
+def get_expense_list(
+    page: int = 1,
+    page_size: int = 20,
+    category: str | None = None,
+    start_date: date_type | None = None,
+    end_date: date_type | None = None,
+) -> ExpenseListPage:
+    """List expenses, most-recent-first, paginated, with optional filters (EXP-11, EXP-14).
 
     Raises:
+        HTTPException(422): `start_date` is after `end_date`.
         HTTPException(500): retrieval failed — no partial page is returned.
     """
     try:
-        return get_expenses_page(page, page_size)
+        return get_expenses_page(
+            page,
+            page_size,
+            category,
+            start_date.isoformat() if start_date else None,
+            end_date.isoformat() if end_date else None,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
     except Exception as exc:
         raise HTTPException(status_code=500, detail="Could not retrieve expenses") from exc
 

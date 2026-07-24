@@ -1,0 +1,17 @@
+{
+  "task_id": "EXP-14",
+  "source": "coordinator",
+  "created_at": "2026-07-24T19:25:00Z",
+  "updated_at": "2026-07-24T19:40:00Z",
+  "requirements": [
+    {"id": "REQ-1", "text": "Category filter (exact match) → only matching expenses shown.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py"], "test_refs": ["tests/test_filter_expenses.py::test_category_filter_returns_only_matching"], "notes": "", "last_updated": "2026-07-24T19:40:00Z"},
+    {"id": "REQ-2", "text": "Date-range filter (inclusive of both ends) → only expenses within range shown.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py"], "test_refs": ["tests/test_filter_expenses.py::test_date_range_filter_is_inclusive_and_excludes_outside"], "notes": "", "last_updated": "2026-07-24T19:40:00Z"},
+    {"id": "REQ-3", "text": "Combined category + date filter → only expenses matching both shown.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py"], "test_refs": ["tests/test_filter_expenses.py::test_combined_category_and_date_filter"], "notes": "", "last_updated": "2026-07-24T19:40:00Z"},
+    {"id": "REQ-4", "text": "No expenses match category → empty-state message shown.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["routers/expenses.py"], "test_refs": ["tests/test_filter_expenses.py::test_no_match_returns_empty_list_not_error"], "notes": "", "last_updated": "2026-07-24T19:40:00Z"},
+    {"id": "REQ-5", "text": "Start date after end date → validation error, no filter applied.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["service.py", "routers/expenses.py"], "test_refs": ["tests/test_filter_expenses.py::test_start_after_end_date_is_rejected"], "notes": "", "last_updated": "2026-07-24T19:40:00Z"},
+    {"id": "REQ-6", "text": "Empty filter inputs → full unfiltered list shown.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["service.py"], "test_refs": ["tests/test_filter_expenses.py::test_no_filters_returns_full_unfiltered_list"], "notes": "", "last_updated": "2026-07-24T19:40:00Z"},
+    {"id": "REQ-7", "text": "Expense dated exactly on start or end boundary → included in results.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["repository.py"], "test_refs": ["tests/test_filter_expenses.py::test_boundary_dates_are_included"], "notes": "", "last_updated": "2026-07-24T19:40:00Z"},
+    {"id": "REQ-8", "text": "Clearing filters → returns to full unfiltered list.", "origin": "acceptance-criterion", "status": "done", "component_ids": ["service.py"], "test_refs": ["tests/test_filter_expenses.py::test_clearing_filters_returns_to_full_list"], "notes": "", "last_updated": "2026-07-24T19:40:00Z"}
+  ],
+  "coverage_summary": {"total": 8, "done": 8, "descoped": 0, "outstanding": 0}
+}

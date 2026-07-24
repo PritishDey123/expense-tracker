@@ -38,13 +38,6 @@ def list_expenses() -> list[dict]:
         return [dict(row) for row in rows]
 
 
-def count_expenses() -> int:
-    """Return the total number of stored expenses."""
-    with get_connection() as conn:
-        (total,) = conn.execute("SELECT COUNT(*) FROM expenses").fetchone()
-        return total
-
-
 def get_expense(expense_id: str) -> dict | None:
     """Return one expense by id, or None if it does not exist."""
     with get_connection() as conn:
@@ -104,18 +97,46 @@ def summarize(group_by: str, start_date: str | None, end_date: str | None) -> li
         return [dict(row) for row in rows]
 
 
-def list_expenses_page(page: int, page_size: int) -> list[dict]:
+def list_expenses_page(
+    page: int,
+    page_size: int,
+    category: str | None = None,
+    start_date: str | None = None,
+    end_date: str | None = None,
+) -> list[dict]:
     """Return one page of expenses, most-recently-created first, stable order.
 
     `rowid DESC` is the tiebreaker for same-`created_at` rows, so paging and
-    repeated views never reorder or duplicate results.
+    repeated views never reorder or duplicate results. `category`/date-range
+    filters (EXP-14) are optional and combine with AND when given together.
     """
     offset = (page - 1) * page_size
     with get_connection() as conn:
         rows = conn.execute(
-            "SELECT id, amount, category, date, description, created_at "
-            "FROM expenses ORDER BY created_at DESC, rowid DESC "
-            "LIMIT ? OFFSET ?",
-            (page_size, offset),
+            "SELECT id, amount, category, date, description, created_at FROM expenses "
+            "WHERE (:category IS NULL OR category = :category) "
+            "AND (:start IS NULL OR date >= :start) AND (:end IS NULL OR date <= :end) "
+            "ORDER BY created_at DESC, rowid DESC LIMIT :limit OFFSET :offset",
+            {
+                "category": category,
+                "start": start_date,
+                "end": end_date,
+                "limit": page_size,
+                "offset": offset,
+            },
         ).fetchall()
         return [dict(row) for row in rows]
+
+
+def count_expenses_filtered(
+    category: str | None = None, start_date: str | None = None, end_date: str | None = None
+) -> int:
+    """Return the count of expenses matching the same filters as list_expenses_page."""
+    with get_connection() as conn:
+        (total,) = conn.execute(
+            "SELECT COUNT(*) FROM expenses "
+            "WHERE (:category IS NULL OR category = :category) "
+            "AND (:start IS NULL OR date >= :start) AND (:end IS NULL OR date <= :end)",
+            {"category": category, "start": start_date, "end": end_date},
+        ).fetchone()
+        return total

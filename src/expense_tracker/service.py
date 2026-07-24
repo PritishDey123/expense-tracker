@@ -12,7 +12,7 @@ from expense_tracker.models import (
     SummaryRow,
 )
 from expense_tracker.repository import (
-    count_expenses,
+    count_expenses_filtered,
     get_expense,
     insert_expense,
     list_expenses_page,
@@ -51,15 +51,29 @@ def create_expense(payload: ExpenseCreate) -> ExpenseOut:
     )
 
 
-def get_expenses_page(page: int, page_size: int) -> ExpenseListPage:
+def get_expenses_page(
+    page: int,
+    page_size: int,
+    category: str | None = None,
+    start_date: str | None = None,
+    end_date: str | None = None,
+) -> ExpenseListPage:
     """Return one most-recent-first page of expenses.
 
     Args:
         page: 1-indexed page number.
         page_size: Max rows per page.
+        category, start_date, end_date: Optional filters (EXP-14) — omitted
+            means unfiltered on that dimension.
+
+    Raises:
+        ValueError: `start_date` is after `end_date`.
     """
-    rows = list_expenses_page(page, page_size)
-    total = count_expenses()
+    if start_date and end_date and start_date > end_date:
+        raise ValueError("start_date must not be after end_date")
+
+    rows = list_expenses_page(page, page_size, category, start_date, end_date)
+    total = count_expenses_filtered(category, start_date, end_date)
     has_next = page * page_size < total
     return ExpenseListPage(
         items=[ExpenseOut(**row) for row in rows],

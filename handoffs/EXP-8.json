@@ -1,0 +1,29 @@
+{
+  "task_id": "EXP-8",
+  "ticket_key": "EXP-8",
+  "ticket_url": "plane://tdworkspace/EXP/cca6e52d-7912-45c3-925b-17def23d1231",
+  "title": "Expense Tracker — Initiative",
+  "current_owner": "developer",
+  "current_state": "Ready for Dev",
+  "milestones": [
+    {
+      "agent": "analyst",
+      "state": "Ready for Planning",
+      "timestamp": "2026-07-24T15:12:10Z",
+      "action": "draft-stories",
+      "notes": "Restarted from idea.md. 1 Feature (Expense management, EXP-9), 6 stories (EXP-10..EXP-15), 23 SP total, single domain, no wrapping Epic. Ready for Coordinator validation.",
+      "artifacts": ["EXP-9", "EXP-10", "EXP-11", "EXP-12", "EXP-13", "EXP-14", "EXP-15"]
+    },
+    {
+      "agent": "coordinator",
+      "state": "Ready for Dev",
+      "timestamp": "2026-07-24T15:38:45Z",
+      "action": "stories-validated-transitioned",
+      "notes": "Quality-checked all 6 stories (title, AC testability, sizing, components, source, non-functional) — all PASS, sizes S/M only. >5-story human-review checkpoint triggered (6 stories from one requirement); human approved with one condition: resolve EXP-12's open question on empty description on edit. Human decided: reject (mirror create-time rule) — EXP-12 description and AC-5 updated accordingly, comment posted. All 6 (EXP-10..EXP-15) transitioned Backlog -> Ready for Dev in Plane with handoff comments; owner handed to developer.",
+      "artifacts": ["EXP-10", "EXP-11", "EXP-12", "EXP-13", "EXP-14", "EXP-15"]
+    }
+  ],
+  "blocked": false,
+  "blocked_reason": null,
+  "next_step": "Developer picks up EXP-10 first (schema-defining story), then EXP-11/EXP-12/EXP-13/EXP-15 in parallel, then EXP-14 last (depends on EXP-11)."
+}

@@ -1,0 +1,42 @@
+{
+  "task_id": "20260727-docgen-full-sweep",
+  "ticket_key": null,
+  "ticket_url": null,
+  "title": "Full documentation sweep for expense-tracker (backend + frontend)",
+  "current_owner": "human",
+  "current_state": "Done",
+  "milestones": [
+    {
+      "agent": "doc-generator",
+      "state": "Done",
+      "timestamp": "2026-07-27T00:00:00Z",
+      "action": "docs-published",
+      "notes": "Human-requested full doc sweep, not tied to a specific Plane ticket. Found drift: root README claimed 'no UI yet' though the frontend (EXP-17..EXP-22) had fully shipped, and frontend/README.md was still the unedited create-vite template. Fixed both READMEs and wrote docs/adr/0002-react-vite-frontend.md for the frontend addition (a real architectural decision not previously recorded). Ran audit-missing-docs afterward across both backend and frontend services — zero gaps found (README/ADR/API docs complete for both; runbook correctly not required since PROJECT.md has environments: []).",
+      "artifacts": [
+        "README.md",
+        "frontend/README.md",
+        "docs/adr/0002-react-vite-frontend.md",
+        "handoffs/20260727-docgen-full-sweep.audit.json"
+      ]
+    },
+    {
+      "agent": "doc-generator",
+      "state": "Done",
+      "timestamp": "2026-07-27T00:10:00Z",
+      "action": "docs-published",
+      "notes": "Follow-up gap caught by human review: root README's Getting Started section covered only the backend (uv sync / uvicorn) and never said how to run the frontend — the frontend was only reachable via a link from the Overview section. Added a 'Running the frontend' subsection to Getting Started (cd frontend, npm install, npm run dev, noting the dev-proxy dependency on the backend and Vite's default port 5173, confirmed absent from vite.config.ts so it is the tool default not an app-specific override).",
+      "artifacts": ["README.md"]
+    },
+    {
+      "agent": "doc-generator",
+      "state": "Done",
+      "timestamp": "2026-07-27T00:15:00Z",
+      "action": "docs-published",
+      "notes": "Proactive re-check for the same failure mode (section present per template but substantively backend-only): 'Running tests' only covered pytest, and the Contributing checklist only listed backend lint/test commands. Added frontend cross-references (npx vitest run, npm run lint) to both.",
+      "artifacts": ["README.md"]
+    }
+  ],
+  "blocked": false,
+  "blocked_reason": null,
+  "next_step": "None required now. Revisit the runbook requirement once PROJECT.md's environments list is populated with a real production environment."
+}

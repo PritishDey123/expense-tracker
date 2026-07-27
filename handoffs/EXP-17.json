@@ -1,0 +1,27 @@
+{
+  "task_id": "EXP-17",
+  "ticket_key": "EXP-17",
+  "ticket_url": "plane://tdworkspace/EXP/5ba250f6-32a4-40f4-b290-bf01ca382962",
+  "title": "Budget Owner can view their expense ledger so that they see their spending at a glance",
+  "current_owner": "human",
+  "current_state": "In Review",
+  "milestones": [
+    {
+      "agent": "developer",
+      "state": "In Progress",
+      "timestamp": "2026-07-27T09:14:00Z",
+      "action": "branch-created",
+      "notes": "Scaffolded frontend/ (Vite+React+TS+Vitest). Branch: dev/EXP-17-ledger-view."
+    },
+    {
+      "agent": "developer",
+      "state": "In Review",
+      "timestamp": "2026-07-27T09:52:00Z",
+      "action": "open-pr",
+      "notes": "All 7 ACs covered, 31 tests green, lint/tsc clean, build succeeds. No GitHub CLI available to open the PR object directly — branch pushed to origin; compare link posted on the Plane ticket. Human must open/merge the PR."
+    }
+  ],
+  "blocked": false,
+  "blocked_reason": null,
+  "next_step": "Human opens PR from dev/EXP-17-ledger-view against main (compare link in Plane comment) and merges after review."
+}

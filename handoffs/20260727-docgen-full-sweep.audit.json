@@ -1,0 +1,8 @@
+{
+  "audit_id": "20260727-docgen-full-sweep",
+  "scope": "full repo (expense-tracker: backend + frontend)",
+  "audit_date": "2026-07-27T00:00:00Z",
+  "gaps": [],
+  "jira_tasks_opened": [],
+  "notes": "Human-requested full documentation sweep. Found and fixed drift: root README claimed 'no UI yet' despite the frontend (EXP-17..EXP-22) being fully shipped, and frontend/README.md was still the unedited create-vite template. Rewrote both READMEs and added ADR 0002 documenting the React+Vite frontend decision. Post-fix audit-missing-docs scan found zero remaining gaps for either the backend or frontend service."
+}

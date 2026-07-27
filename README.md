@@ -20,11 +20,16 @@ A single-user expense tracker exposing a REST API to record, list, edit, delete,
 expense-tracker is a basic single-user expense tracking service. It has no
 authentication or multi-tenancy in v1 — there is a single implicit user
 referred to in the domain glossary as "Budget Owner". v1 ships as a REST API
-only; there is no UI yet. Data is persisted to a local SQLite file with no
-ORM and no migration framework — the schema is created automatically at
-application startup. Stories EXP-10 through EXP-16 (tracked in Plane) map to
-the create, list, edit, delete, filter, summary, and startup schema
-auto-init capabilities respectively, and are all in `Done` state.
+plus a React frontend (`frontend/`) that provides create, edit, delete,
+filter, and summary views over that API — see
+[`frontend/README.md`](frontend/README.md) for the UI's own setup and
+architecture. Data is persisted to a local SQLite file with no ORM and no
+migration framework — the schema is created automatically at application
+startup. Stories EXP-10 through EXP-16 (tracked in Plane) map to the create,
+list, edit, delete, filter, summary, and startup schema auto-init
+capabilities of the API respectively, and are all in `Done` state. Stories
+EXP-17 through EXP-22 (also tracked in Plane, all `Done`) added the frontend
+on top of that API.
 
 ## Getting started
 
@@ -54,6 +59,21 @@ initialization is required — the schema is created automatically on
 startup by `init_db()`. Once running, interactive API docs are available at
 `/docs` (Swagger UI) and `/redoc` (ReDoc).
 
+### Running the frontend
+
+The React UI lives in `frontend/` and requires the backend above to already
+be running on port 8000 (its dev server proxies `/expenses` requests there).
+In a separate terminal:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+This starts the Vite dev server (default `http://localhost:5173`) with hot
+reload. See [`frontend/README.md`](frontend/README.md) for build, lint, and
+test commands.
+
 ### Running tests
 ```bash
 uv run pytest
@@ -64,6 +84,10 @@ uv run pytest --cov
 
 Tests live in `tests/`. Each test gets an isolated, temporary SQLite
 database via the `client` fixture defined in `conftest.py`.
+
+This covers the backend only. For frontend tests, see
+[`frontend/README.md`](frontend/README.md#running-tests) (`npx vitest run`
+from `frontend/`).
 
 ## Architecture
 
@@ -82,6 +106,7 @@ services, queues, or caches.
 | `src/expense_tracker/service.py` | Business logic layer — validation orchestration, UUID generation, calls into the repository |
 | `src/expense_tracker/routers/expenses.py` | HTTP layer — `APIRouter(prefix="/expenses", tags=["expenses"])`, thin route handlers |
 | `src/expense_tracker/errors.py` | Domain exceptions (e.g. `ExpenseNotFoundError`) |
+| `frontend/` | React 19 + TypeScript + Vite single-page app consuming the `/expenses` API — see [`frontend/README.md`](frontend/README.md) |
 
 **External dependencies:**
 | System | Purpose | Notes |
@@ -124,6 +149,9 @@ There is no `CONTRIBUTING.md` yet. Until one exists, follow these basics:
 
 1. Fork the repository and create a feature branch off `main`.
 2. Make your changes, keeping components small and each with a matching test.
-3. Run the test suite: `uv run pytest` (and `uv run pytest --cov` to check coverage).
-4. Format and lint before committing: `uv run ruff format .` and `uv run ruff check .` (line length 100, default rule set).
+3. Run the test suite: `uv run pytest` (and `uv run pytest --cov` to check coverage) for
+   backend changes, or `npx vitest run` from `frontend/` for frontend changes.
+4. Format and lint before committing: `uv run ruff format .` and `uv run ruff check .`
+   (line length 100, default rule set) for backend changes, or `npm run lint` (`oxlint`)
+   from `frontend/` for frontend changes.
 5. Open a pull request against `main` at https://github.com/PritishDey123/expense-tracker.git.

@@ -1,0 +1,27 @@
+{
+  "task_id": "EXP-21",
+  "ticket_key": "EXP-21",
+  "ticket_url": "plane://tdworkspace/EXP/e502cf93-f325-4a55-abc3-680bbe5f8fde",
+  "title": "Budget Owner can filter the ledger by category and date so that they can analyze specific spending",
+  "current_owner": "human",
+  "current_state": "In Review",
+  "milestones": [
+    {
+      "agent": "developer",
+      "state": "In Progress",
+      "timestamp": "2026-07-27T09:41:30Z",
+      "action": "session-start",
+      "notes": "Picked up after EXP-20 (dev/EXP-20-delete-expense). Branch: dev/EXP-21-filter-ledger."
+    },
+    {
+      "agent": "developer",
+      "state": "In Review",
+      "timestamp": "2026-07-27T09:52:00Z",
+      "action": "open-pr",
+      "notes": "All 7 ACs covered, tests green, lint/tsc clean. Stacked on dev/EXP-20-delete-expense. No GitHub CLI available; branch pushed, compare link posted on Plane ticket."
+    }
+  ],
+  "blocked": false,
+  "blocked_reason": null,
+  "next_step": "Human opens PR from dev/EXP-21-filter-ledger against dev/EXP-20-delete-expense (merge EXP-17..20 first) and merges after review."
+}

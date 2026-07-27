@@ -1,0 +1,27 @@
+{
+  "task_id": "EXP-20",
+  "ticket_key": "EXP-20",
+  "ticket_url": "plane://tdworkspace/EXP/bd9c195b-b856-4cdf-bbe5-b2013f14b987",
+  "title": "Budget Owner can delete an expense from the UI so that incorrect entries are removed",
+  "current_owner": "human",
+  "current_state": "In Review",
+  "milestones": [
+    {
+      "agent": "developer",
+      "state": "In Progress",
+      "timestamp": "2026-07-27T09:38:30Z",
+      "action": "session-start",
+      "notes": "Picked up after EXP-19 (dev/EXP-19-edit-expense). Branch: dev/EXP-20-delete-expense."
+    },
+    {
+      "agent": "developer",
+      "state": "In Review",
+      "timestamp": "2026-07-27T09:52:00Z",
+      "action": "open-pr",
+      "notes": "All 5 ACs covered, tests green, lint/tsc clean. Stacked on dev/EXP-19-edit-expense. No GitHub CLI available; branch pushed, compare link posted on Plane ticket."
+    }
+  ],
+  "blocked": false,
+  "blocked_reason": null,
+  "next_step": "Human opens PR from dev/EXP-20-delete-expense against dev/EXP-19-edit-expense (merge EXP-17..19 first) and merges after review."
+}

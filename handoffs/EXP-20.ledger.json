@@ -1,0 +1,11 @@
+{
+  "task_id": "EXP-20",
+  "requirements": [
+    { "id": "AC-1", "text": "Delete shows a confirmation prompt before removal", "status": "done" },
+    { "id": "AC-2", "text": "Confirming removes the entry and updates the running total", "status": "done" },
+    { "id": "AC-3", "text": "Cancelling the confirmation leaves the entry unchanged", "status": "done" },
+    { "id": "AC-4", "text": "API failure shows error, entry remains visible", "status": "done" },
+    { "id": "AC-5", "text": "Deleting one entry only removes that entry, others unaffected", "status": "done" }
+  ],
+  "outstanding": 0
+}

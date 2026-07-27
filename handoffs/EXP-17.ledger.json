@@ -1,0 +1,13 @@
+{
+  "task_id": "EXP-17",
+  "requirements": [
+    { "id": "AC-1", "text": "Entries appear in tape most-recent-first, per design spec", "status": "done" },
+    { "id": "AC-2", "text": "Empty state invites recording the first expense", "status": "done" },
+    { "id": "AC-3", "text": "List API failure shows error, no partial/stale data", "status": "done" },
+    { "id": "AC-4", "text": "Scroll pagination loads more entries, no dup/skip", "status": "done" },
+    { "id": "AC-5", "text": "Stub shows this-month total matching sum of loaded expenses", "status": "done" },
+    { "id": "AC-6", "text": "Stub collapses above tape at <=480px", "status": "done" },
+    { "id": "AC-7", "text": "Keyboard focus visible on every interactive control", "status": "done" }
+  ],
+  "outstanding": 0
+}

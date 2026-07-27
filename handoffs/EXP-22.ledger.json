@@ -1,0 +1,11 @@
+{
+  "task_id": "EXP-22",
+  "requirements": [
+    { "id": "AC-1", "text": "Category totals show as bar ticks summing to the period total", "status": "done" },
+    { "id": "AC-2", "text": "Month-grouping toggle groups totals by month", "status": "done" },
+    { "id": "AC-3", "text": "No expenses in period shows zero/empty state, not an error", "status": "done" },
+    { "id": "AC-4", "text": "Uncategorized expenses bucket under \"Uncategorized\" per backend rule", "status": "done" },
+    { "id": "AC-5", "text": "API failure shows error without breaking the rest of the stub", "status": "done" }
+  ],
+  "outstanding": 0
+}

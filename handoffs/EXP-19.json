@@ -1,0 +1,27 @@
+{
+  "task_id": "EXP-19",
+  "ticket_key": "EXP-19",
+  "ticket_url": "plane://tdworkspace/EXP/82fd39f6-8fdc-4535-acd1-c7784516109a",
+  "title": "Budget Owner can edit an expense from the UI so that they can correct mistakes",
+  "current_owner": "human",
+  "current_state": "In Review",
+  "milestones": [
+    {
+      "agent": "developer",
+      "state": "In Progress",
+      "timestamp": "2026-07-27T09:35:00Z",
+      "action": "session-start",
+      "notes": "Picked up after EXP-18 (dev/EXP-18-create-expense-form). Branch: dev/EXP-19-edit-expense."
+    },
+    {
+      "agent": "developer",
+      "state": "In Review",
+      "timestamp": "2026-07-27T09:52:00Z",
+      "action": "open-pr",
+      "notes": "All 6 ACs covered, tests green, lint/tsc clean. Stacked on dev/EXP-18-create-expense-form. No GitHub CLI available; branch pushed, compare link posted on Plane ticket."
+    }
+  ],
+  "blocked": false,
+  "blocked_reason": null,
+  "next_step": "Human opens PR from dev/EXP-19-edit-expense against dev/EXP-18-create-expense-form (merge EXP-17, EXP-18 first) and merges after review."
+}

@@ -1,0 +1,12 @@
+{
+  "task_id": "EXP-19",
+  "requirements": [
+    { "id": "AC-1", "text": "Edit makes fields editable, pre-filled with current values", "status": "done" },
+    { "id": "AC-2", "text": "Valid save PATCHes and updates the row immediately", "status": "done" },
+    { "id": "AC-3", "text": "Zero/negative amount shows inline error, original retained", "status": "done" },
+    { "id": "AC-4", "text": "Cleared description shows inline error, original retained (EXP-12 rule)", "status": "done" },
+    { "id": "AC-5", "text": "Cancel before saving leaves the entry unchanged", "status": "done" },
+    { "id": "AC-6", "text": "API failure shows error, row keeps pre-edit values", "status": "done" }
+  ],
+  "outstanding": 0
+}

@@ -1,0 +1,13 @@
+{
+  "task_id": "EXP-21",
+  "requirements": [
+    { "id": "AC-1", "text": "Category filter shows only matching entries", "status": "done" },
+    { "id": "AC-2", "text": "Inclusive date range shows only entries within range", "status": "done" },
+    { "id": "AC-3", "text": "Both filters combined show only entries matching both", "status": "done" },
+    { "id": "AC-4", "text": "No matches shows empty-state message, not an error", "status": "done" },
+    { "id": "AC-5", "text": "Start after end shows validation error, no filter applied", "status": "done" },
+    { "id": "AC-6", "text": "Clearing filters returns the full unfiltered list", "status": "done" },
+    { "id": "AC-7", "text": "Active filter chip marked with stamp-gold accent", "status": "done" }
+  ],
+  "outstanding": 0
+}

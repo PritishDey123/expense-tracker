@@ -1,0 +1,27 @@
+{
+  "task_id": "EXP-22",
+  "ticket_key": "EXP-22",
+  "ticket_url": "plane://tdworkspace/EXP/09c11c10-2c3b-4cbe-841f-748178b0e4d1",
+  "title": "Budget Owner can view a spending summary panel so that they understand spending patterns",
+  "current_owner": "human",
+  "current_state": "In Review",
+  "milestones": [
+    {
+      "agent": "developer",
+      "state": "In Progress",
+      "timestamp": "2026-07-27T09:47:00Z",
+      "action": "session-start",
+      "notes": "Picked up after EXP-21 (dev/EXP-21-filter-ledger). Branch: dev/EXP-22-spending-summary."
+    },
+    {
+      "agent": "developer",
+      "state": "In Review",
+      "timestamp": "2026-07-27T09:52:00Z",
+      "action": "open-pr",
+      "notes": "All 5 ACs covered. Full frontend suite: 63 tests green, lint/tsc clean, ~93% coverage, production build succeeds. Stacked on dev/EXP-21-filter-ledger — this is the last of the 6 EXP-17..22 UI stories. No GitHub CLI available; branch pushed, compare link posted on Plane ticket."
+    }
+  ],
+  "blocked": false,
+  "blocked_reason": null,
+  "next_step": "Human opens PR from dev/EXP-22-spending-summary against dev/EXP-21-filter-ledger (merge EXP-17..21 first in order) and merges after review. Once all 6 are merged to main in order, the EXP-17..22 ledger UI feature is complete."
+}

@@ -6,6 +6,7 @@ import * as client from './api/client'
 
 beforeEach(() => {
   vi.restoreAllMocks()
+  vi.spyOn(client, 'getSummary').mockResolvedValue({ group_by: 'category', totals: [], overall_total: 0 })
 })
 
 describe('App', () => {

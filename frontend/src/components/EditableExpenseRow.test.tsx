@@ -12,13 +12,13 @@ const expense: Expense = {
   description: 'Ivy Market',
 }
 
-function renderRow(onSave = vi.fn().mockResolvedValue(undefined)) {
+function renderRow(onSave = vi.fn().mockResolvedValue(undefined), onDelete = vi.fn().mockResolvedValue(undefined)) {
   const utils = render(
     <ul>
-      <EditableExpenseRow expense={expense} onSave={onSave} />
+      <EditableExpenseRow expense={expense} onSave={onSave} onDelete={onDelete} />
     </ul>,
   )
-  return { ...utils, onSave }
+  return { ...utils, onSave, onDelete }
 }
 
 describe('EditableExpenseRow', () => {
@@ -104,5 +104,45 @@ describe('EditableExpenseRow', () => {
 
     expect(await screen.findByText('Expense not found')).toBeInTheDocument()
     expect(screen.getByLabelText(/amount/i)).toHaveValue(60)
+  })
+
+  it('asks for confirmation before deleting', async () => {
+    const user = userEvent.setup()
+    const { onDelete } = renderRow(undefined, vi.fn())
+    await user.click(screen.getByRole('button', { name: /^delete/i }))
+
+    expect(screen.getByText(/delete this entry/i)).toBeInTheDocument()
+    expect(onDelete).not.toHaveBeenCalled()
+  })
+
+  it('removes nothing when the confirmation is cancelled', async () => {
+    const user = userEvent.setup()
+    const { onDelete } = renderRow()
+    await user.click(screen.getByRole('button', { name: /^delete/i }))
+    await user.click(screen.getByRole('button', { name: /cancel/i }))
+
+    expect(onDelete).not.toHaveBeenCalled()
+    expect(screen.getByText('Ivy Market')).toBeInTheDocument()
+  })
+
+  it('calls onDelete when the confirmation is accepted', async () => {
+    const user = userEvent.setup()
+    const onDelete = vi.fn().mockResolvedValue(undefined)
+    renderRow(undefined, onDelete)
+    await user.click(screen.getByRole('button', { name: /^delete/i }))
+    await user.click(screen.getByRole('button', { name: /confirm/i }))
+
+    expect(onDelete).toHaveBeenCalledWith('1')
+  })
+
+  it('shows an error and keeps the entry visible when delete fails', async () => {
+    const user = userEvent.setup()
+    const onDelete = vi.fn().mockRejectedValue(new Error('Expense not found'))
+    renderRow(undefined, onDelete)
+    await user.click(screen.getByRole('button', { name: /^delete/i }))
+    await user.click(screen.getByRole('button', { name: /confirm/i }))
+
+    expect(await screen.findByText('Expense not found')).toBeInTheDocument()
+    expect(screen.getByText('Ivy Market')).toBeInTheDocument()
   })
 })

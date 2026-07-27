@@ -1,0 +1,24 @@
+.delete-confirm {
+  list-style: none;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px dashed var(--rule);
+  background: var(--paper);
+}
+
+.delete-confirm p {
+  margin: 0 0 0.4rem;
+}
+
+.delete-confirm__desc {
+  font-style: italic;
+}
+
+.delete-confirm__error {
+  color: var(--ledger-red);
+}
+
+.delete-confirm__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

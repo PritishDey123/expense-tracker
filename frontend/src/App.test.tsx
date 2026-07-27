@@ -79,4 +79,27 @@ describe('App', () => {
     expect(rows[0]).toHaveTextContent('Electricity bill')
     expect(screen.queryByLabelText(/amount/i)).not.toBeInTheDocument()
   })
+
+  it('deletes an expense after confirmation and updates the running total', async () => {
+    const user = userEvent.setup()
+    vi.spyOn(client, 'listExpenses').mockResolvedValue({
+      items: [{ id: '1', amount: 10, category: 'Food', date: '2026-07-20', description: 'to-delete' }],
+      page: 1,
+      page_size: 20,
+      total: 1,
+      has_next: false,
+    })
+    vi.spyOn(client, 'deleteExpense').mockResolvedValue(undefined)
+
+    render(<App />)
+    await waitFor(() => expect(screen.getByText('to-delete')).toBeInTheDocument())
+
+    await user.click(screen.getByRole('button', { name: /^delete/i }))
+    expect(screen.getByText(/delete this entry/i)).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: /confirm/i }))
+
+    await waitFor(() => expect(screen.queryByText('to-delete')).not.toBeInTheDocument())
+    expect(client.deleteExpense).toHaveBeenCalledWith('1')
+  })
 })

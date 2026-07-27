@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useExpenses } from './hooks/useExpenses'
-import { createExpense, editExpense } from './api/client'
+import { createExpense, editExpense, deleteExpense } from './api/client'
 import { LedgerStub } from './components/LedgerStub'
 import { Tape } from './components/Tape'
 import { NewExpenseForm } from './components/NewExpenseForm'
@@ -23,6 +23,11 @@ function App() {
     setItems((prev) => prev.map((item) => (item.id === id ? updated : item)))
   }
 
+  async function handleDelete(id: string) {
+    await deleteExpense(id)
+    setItems((prev) => prev.filter((item) => item.id !== id))
+  }
+
   return (
     <div className="app">
       <LedgerStub items={items} />
@@ -41,6 +46,7 @@ function App() {
           hasNext={hasNext}
           onLoadMore={loadMore}
           onEditSave={handleEditSave}
+          onDelete={handleDelete}
         />
       </main>
     </div>

@@ -1,0 +1,39 @@
+.expense-row {
+  display: grid;
+  grid-template-columns: 3.5rem 6.5rem 1fr auto;
+  gap: 0.75rem;
+  align-items: baseline;
+  list-style: none;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--rule);
+}
+
+.expense-row__date,
+.expense-row__amount {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.expense-row__date {
+  color: var(--ink);
+  opacity: 0.65;
+}
+
+.expense-row__category {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  opacity: 0.75;
+}
+
+.expense-row__description {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.expense-row__amount {
+  color: var(--ledger-red);
+  text-align: right;
+}

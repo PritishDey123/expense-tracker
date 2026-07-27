@@ -1,0 +1,39 @@
+.app {
+  display: flex;
+  min-height: 100svh;
+}
+
+.app__tape-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.app__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.app__header h1 {
+  font-size: 1.4rem;
+}
+
+.app__new-button {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 3px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .app {
+    flex-direction: column;
+  }
+}

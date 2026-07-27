@@ -1,0 +1,8 @@
+.error-banner {
+  font-family: var(--font-body);
+  color: var(--ledger-red);
+  border: 1px solid var(--ledger-red);
+  border-radius: 2px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+}

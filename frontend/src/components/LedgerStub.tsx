@@ -1,14 +1,17 @@
 import { currentMonthKey, isInMonth } from '../utils/format'
+import { FilterControls, type Filters } from './FilterControls'
 import type { Expense } from '../api/types'
 import './LedgerStub.css'
 
 interface LedgerStubProps {
   items: Expense[]
   now?: Date
+  filters: Filters
+  onFiltersChange: (filters: Filters) => void
 }
 
-/** Fixed left panel: this month's running total, computed from currently-loaded entries. */
-export function LedgerStub({ items, now = new Date() }: LedgerStubProps) {
+/** Fixed left panel: this month's running total and the category/date filter controls. */
+export function LedgerStub({ items, now = new Date(), filters, onFiltersChange }: LedgerStubProps) {
   const monthKey = currentMonthKey(now)
   const total = items
     .filter((item) => isInMonth(item.date, monthKey))
@@ -18,6 +21,7 @@ export function LedgerStub({ items, now = new Date() }: LedgerStubProps) {
     <aside className="ledger-stub">
       <p className="ledger-stub__label">This month</p>
       <p className="ledger-stub__total">{total.toFixed(2)}</p>
+      <FilterControls filters={filters} onChange={onFiltersChange} />
     </aside>
   )
 }

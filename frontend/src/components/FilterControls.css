@@ -1,0 +1,38 @@
+.filter-controls {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.filter-controls label {
+  font-size: 0.75rem;
+}
+
+.filter-controls input {
+  width: 100%;
+  padding: 0.3rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--paper);
+}
+
+.filter-controls__error {
+  color: var(--ledger-red);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.filter-controls__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.filter-chip {
+  background: var(--stamp-gold);
+  color: var(--ink);
+  font-size: 0.75rem;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+}

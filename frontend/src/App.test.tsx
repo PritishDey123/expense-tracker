@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 import * as client from './api/client'
@@ -69,7 +69,7 @@ describe('App', () => {
 
     await user.click(screen.getByRole('button', { name: /new/i }))
     await user.type(screen.getByLabelText(/amount/i), '54.99')
-    await user.type(screen.getByLabelText(/category/i), 'Utilities')
+    await user.type(screen.getByLabelText(/^category$/i), 'Utilities')
     await user.type(screen.getByLabelText(/date/i), '2026-07-20')
     await user.type(screen.getByLabelText(/description/i), 'Electricity bill')
     await user.click(screen.getByRole('button', { name: /save/i }))
@@ -101,5 +101,32 @@ describe('App', () => {
 
     await waitFor(() => expect(screen.queryByText('to-delete')).not.toBeInTheDocument())
     expect(client.deleteExpense).toHaveBeenCalledWith('1')
+  })
+
+  it('refetches with the category filter applied', async () => {
+    const listSpy = vi
+      .spyOn(client, 'listExpenses')
+      .mockResolvedValueOnce({
+        items: [{ id: '1', amount: 10, category: 'Food', date: '2026-07-20', description: 'unfiltered' }],
+        page: 1,
+        page_size: 20,
+        total: 1,
+        has_next: false,
+      })
+      .mockResolvedValueOnce({
+        items: [{ id: '2', amount: 20, category: 'Food', date: '2026-07-21', description: 'filtered' }],
+        page: 1,
+        page_size: 20,
+        total: 1,
+        has_next: false,
+      })
+
+    render(<App />)
+    await waitFor(() => expect(screen.getByText('unfiltered')).toBeInTheDocument())
+
+    fireEvent.change(screen.getByLabelText(/filter by category/i), { target: { value: 'Food' } })
+
+    await waitFor(() => expect(screen.getByText('filtered')).toBeInTheDocument())
+    expect(listSpy).toHaveBeenLastCalledWith(expect.objectContaining({ category: 'Food', page: 1 }))
   })
 })

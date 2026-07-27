@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useExpenses } from './hooks/useExpenses'
-import { createExpense } from './api/client'
+import { createExpense, editExpense } from './api/client'
 import { LedgerStub } from './components/LedgerStub'
 import { Tape } from './components/Tape'
 import { NewExpenseForm } from './components/NewExpenseForm'
-import type { NewExpenseInput } from './api/types'
+import type { NewExpenseInput, ExpenseEditInput } from './api/types'
 import './App.css'
 
 /** App shell: header, ledger stub, and the scrolling tape of expense entries. */
@@ -18,6 +18,11 @@ function App() {
     setIsCreating(false)
   }
 
+  async function handleEditSave(id: string, changes: ExpenseEditInput) {
+    const updated = await editExpense(id, changes)
+    setItems((prev) => prev.map((item) => (item.id === id ? updated : item)))
+  }
+
   return (
     <div className="app">
       <LedgerStub items={items} />
@@ -29,7 +34,14 @@ function App() {
           </button>
         </header>
         {isCreating && <NewExpenseForm onSubmit={handleCreate} onCancel={() => setIsCreating(false)} />}
-        <Tape items={items} loading={loading} error={error} hasNext={hasNext} onLoadMore={loadMore} />
+        <Tape
+          items={items}
+          loading={loading}
+          error={error}
+          hasNext={hasNext}
+          onLoadMore={loadMore}
+          onEditSave={handleEditSave}
+        />
       </main>
     </div>
   )

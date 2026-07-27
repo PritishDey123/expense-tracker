@@ -1,0 +1,45 @@
+.expense-edit-form {
+  list-style: none;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--rule);
+}
+
+.expense-edit-form form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem 0.75rem;
+  align-items: end;
+}
+
+.expense-edit-form label {
+  display: block;
+  font-size: 0.75rem;
+  margin-bottom: 0.15rem;
+}
+
+.expense-edit-form input {
+  width: 100%;
+  padding: 0.3rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--paper);
+}
+
+.expense-edit-form__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.expense-edit-form__error {
+  grid-column: 1 / -1;
+  color: var(--ledger-red);
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .expense-edit-form form {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
-import { ExpenseRow } from './ExpenseRow'
+import { EditableExpenseRow } from './EditableExpenseRow'
 import { EmptyState } from './EmptyState'
 import { ErrorBanner } from './ErrorBanner'
-import type { Expense } from '../api/types'
+import type { Expense, ExpenseEditInput } from '../api/types'
 import './Tape.css'
 
 interface TapeProps {
@@ -11,10 +11,11 @@ interface TapeProps {
   error: string | null
   hasNext: boolean
   onLoadMore: () => void
+  onEditSave: (id: string, changes: ExpenseEditInput) => Promise<void>
 }
 
 /** The scrolling right panel: expense entries most-recent-first, or the empty/error state. */
-export function Tape({ items, loading, error, hasNext, onLoadMore }: TapeProps) {
+export function Tape({ items, loading, error, hasNext, onLoadMore, onEditSave }: TapeProps) {
   const sentinelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export function Tape({ items, loading, error, hasNext, onLoadMore }: TapeProps) 
   return (
     <ul className="tape" aria-label="Expense entries">
       {items.map((expense) => (
-        <ExpenseRow key={expense.id} expense={expense} />
+        <EditableExpenseRow key={expense.id} expense={expense} onSave={onEditSave} />
       ))}
       <div ref={sentinelRef} aria-hidden="true" />
     </ul>

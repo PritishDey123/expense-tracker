@@ -12,10 +12,11 @@ interface TapeProps {
   hasNext: boolean
   onLoadMore: () => void
   onEditSave: (id: string, changes: ExpenseEditInput) => Promise<void>
+  onDelete: (id: string) => Promise<void>
 }
 
 /** The scrolling right panel: expense entries most-recent-first, or the empty/error state. */
-export function Tape({ items, loading, error, hasNext, onLoadMore, onEditSave }: TapeProps) {
+export function Tape({ items, loading, error, hasNext, onLoadMore, onEditSave, onDelete }: TapeProps) {
   const sentinelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export function Tape({ items, loading, error, hasNext, onLoadMore, onEditSave }:
   return (
     <ul className="tape" aria-label="Expense entries">
       {items.map((expense) => (
-        <EditableExpenseRow key={expense.id} expense={expense} onSave={onEditSave} />
+        <EditableExpenseRow key={expense.id} expense={expense} onSave={onEditSave} onDelete={onDelete} />
       ))}
       <div ref={sentinelRef} aria-hidden="true" />
     </ul>

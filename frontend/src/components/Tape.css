@@ -1,0 +1,7 @@
+.tape {
+  list-style: none;
+  margin: 0;
+  padding: 0 1rem;
+  overflow-y: auto;
+  flex: 1;
+}
